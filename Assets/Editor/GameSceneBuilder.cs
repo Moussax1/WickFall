@@ -172,9 +172,9 @@ namespace WickFall.EditorTools
 
             // 8. Spawn Environmental Hazards (Cursed Mires & Spike Traps)
             GameObject hazardsParent = new GameObject("Hazards");
-            CreateCursedMire(hazardsParent.transform, new Vector2(6.5f, 0f), new Vector2(2.8f, 1.6f));
-            CreateCursedMire(hazardsParent.transform, new Vector2(16.5f, 21.5f), new Vector2(2.5f, 2.5f));
-            CreateCursedMire(hazardsParent.transform, new Vector2(8f, 19f), new Vector2(2.2f, 1.8f));
+            CreateCursedMire(hazardsParent.transform, new Vector2(6.5f, -0.45f), new Vector2(2.4f, 1.2f));
+            CreateCursedMire(hazardsParent.transform, new Vector2(16.5f, 21.5f), new Vector2(2.4f, 2.0f));
+            CreateCursedMire(hazardsParent.transform, new Vector2(8.0f, 18.5f), new Vector2(2.0f, 1.1f));
 
             CreateSpikeTrap(hazardsParent.transform, new Vector2(13.5f, 2.5f));
             CreateSpikeTrap(hazardsParent.transform, new Vector2(17f, -1.5f));
@@ -505,8 +505,8 @@ namespace WickFall.EditorTools
             mire.transform.position = new Vector3(pos.x, pos.y, 0);
 
             var sr = mire.AddComponent<SpriteRenderer>();
-            sr.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(TILE_FLOOR_STONE);
-            sr.color = new Color(0.18f, 0.12f, 0.25f, 0.9f);
+            sr.sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Environment/wax_puddle_molten.png");
+            sr.color = new Color(0.22f, 0.08f, 0.35f, 0.92f);
             sr.sortingOrder = -5;
             mire.transform.localScale = new Vector3(size.x, size.y, 1f);
 

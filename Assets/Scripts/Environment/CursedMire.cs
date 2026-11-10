@@ -3,10 +3,6 @@ using WickFall.Player;
 
 namespace WickFall.Environment
 {
-    /// <summary>
-    /// Cursed shadow-wax sludge pool on the dungeon floor.
-    /// Entangles the player, slowing movement by 40% and slowly draining wax while inside.
-    /// </summary>
     [RequireComponent(typeof(Collider2D))]
     public class CursedMire : MonoBehaviour
     {
@@ -16,26 +12,39 @@ namespace WickFall.Environment
 
         [Header("Visuals & Audio")]
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Color _sludgeColor = new Color(0.22f, 0.08f, 0.35f, 0.92f);
+        [SerializeField] private Color _sludgeGlowColor = new Color(0.35f, 0.12f, 0.52f, 0.95f);
         [SerializeField] private AudioSource _sfxSource;
         [SerializeField] private AudioClip _sizzleSound;
 
         private PlayerController _activePlayer;
         private PlayerWax _activeWax;
+        private SpriteRenderer _playerSR;
+        private Color _playerOriginalColor = Color.white;
+        private Vector3 _baseScale;
 
         private void Awake()
         {
-            var col = GetComponent<Collider2D>();
-            col.isTrigger = true;
-
-            if (_spriteRenderer == null)
-            {
-                _spriteRenderer = GetComponent<SpriteRenderer>();
-            }
-
+            GetComponent<Collider2D>().isTrigger = true;
+            if (_spriteRenderer == null) _spriteRenderer = GetComponent<SpriteRenderer>();
             if (_spriteRenderer != null)
             {
-                _spriteRenderer.color = new Color(0.2f, 0.14f, 0.28f, 0.85f); // Viscous dark purple shadow
-                _spriteRenderer.sortingOrder = -5; // Above floor, below player
+                _spriteRenderer.sortingOrder = -5;
+                _spriteRenderer.color = _sludgeColor;
+            }
+            _baseScale = transform.localScale;
+        }
+
+        private void Update()
+        {
+            if (_spriteRenderer != null && _baseScale != Vector3.zero)
+            {
+                // Organic bubbling / breathing pulsation so players clearly identify active cursed sludge
+                float pulse = 1f + (Mathf.Sin(Time.time * 2.5f) * 0.04f);
+                transform.localScale = new Vector3(_baseScale.x * pulse, _baseScale.y * pulse, 1f);
+
+                float colorT = (Mathf.Sin(Time.time * 3.0f) + 1f) * 0.5f;
+                _spriteRenderer.color = Color.Lerp(_sludgeColor, _sludgeGlowColor, colorT);
             }
         }
 
@@ -47,6 +56,12 @@ namespace WickFall.Environment
                 _activeWax = other.GetComponent<PlayerWax>();
                 _activePlayer.SetSpeedMultiplier(_speedMultiplier);
 
+                _playerSR = other.GetComponentInChildren<SpriteRenderer>();
+                if (_playerSR != null)
+                {
+                    _playerSR.color = new Color(0.65f, 0.5f, 0.85f, 1f); // Cursed sludge tint feedback
+                }
+
                 if (_sfxSource != null && _sizzleSound != null && !_sfxSource.isPlaying)
                 {
                     _sfxSource.Play();
@@ -56,9 +71,14 @@ namespace WickFall.Environment
 
         private void OnTriggerStay2D(Collider2D other)
         {
+            if (_activeWax == null && other.TryGetComponent<PlayerWax>(out var wax))
+            {
+                _activeWax = wax;
+            }
+
             if (_activeWax != null && !_activeWax.IsDead)
             {
-                _activeWax.TakeDamage(_waxDrainPerSecond * Time.deltaTime);
+                _activeWax.DrainWax(_waxDrainPerSecond * Time.deltaTime);
             }
         }
 
@@ -66,24 +86,34 @@ namespace WickFall.Environment
         {
             if (other.TryGetComponent<PlayerController>(out var player) && player == _activePlayer)
             {
-                _activePlayer.SetSpeedMultiplier(1.0f);
-                _activePlayer = null;
-                _activeWax = null;
-
-                if (_sfxSource != null && _sfxSource.isPlaying)
-                {
-                    _sfxSource.Stop();
-                }
+                ReleasePlayer();
             }
         }
 
         private void OnDisable()
         {
+            ReleasePlayer();
+        }
+
+        private void ReleasePlayer()
+        {
             if (_activePlayer != null)
             {
                 _activePlayer.SetSpeedMultiplier(1.0f);
                 _activePlayer = null;
-                _activeWax = null;
+            }
+
+            if (_playerSR != null)
+            {
+                _playerSR.color = Color.white;
+                _playerSR = null;
+            }
+
+            _activeWax = null;
+
+            if (_sfxSource != null && _sfxSource.isPlaying)
+            {
+                _sfxSource.Stop();
             }
         }
     }
