@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "art_direction_brief": "Assets/Documentation/art-direction-brief.md",
+  "assets": [
+    {
+      "id": "player-candle-golem",
+      "role": "player character animations (walk down, side, up, idle, attack)",
+      "path": "Assets/Sprites/Characters/",
+      "status": "produced",
+      "technical": {
+        "dimensions": "64x72 frames",
+        "alpha": true,
+        "anchor": "bottom-center",
+        "filtering": "point",
+        "ppu": 64
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "candle_golem_spritesheet_1793782344118.jpg"
+      }
+    },
+    {
+      "id": "enemy-shadow-thrall",
+      "role": "basic dungeon lurker minion",
+      "path": "Assets/Sprites/Enemies/",
+      "status": "produced",
+      "technical": {
+        "dimensions": "64x64",
+        "alpha": true,
+        "anchor": "bottom-center",
+        "filtering": "point",
+        "ppu": 64
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "wickfall_shadow_thrall_1793782290539.jpg"
+      }
+    },
+    {
+      "id": "prop-brazier",
+      "role": "checkpoint and wax recharge sanctuary (lit and unlit)",
+      "path": "Assets/Sprites/Props/",
+      "status": "produced",
+      "technical": {
+        "dimensions": "80x88",
+        "alpha": true,
+        "anchor": "bottom-center",
+        "filtering": "point",
+        "ppu": 64
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "brazier_wax_shards_spritesheet_1793782259499.jpg"
+      }
+    },
+    {
+      "id": "pickup-wax-shard",
+      "role": "wax and health recovery collectible",
+      "path": "Assets/Sprites/Items/",
+      "status": "produced",
+      "technical": {
+        "dimensions": "48x48 and 32x32",
+        "alpha": true,
+        "anchor": "center",
+        "filtering": "point",
+        "ppu": 64
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "brazier_wax_shards_spritesheet_1793782259499.jpg"
+      }
+    },
+    {
+      "id": "environment-tileset",
+      "role": "dungeon stone walls, stone floor, cobblestone, and doorway",
+      "path": "Assets/Sprites/Environment/",
+      "status": "produced",
+      "technical": {
+        "dimensions": "80x80 modular tiles",
+        "alpha": true,
+        "filtering": "point",
+        "ppu": 80
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "wickfall_dungeon_tiles_1793782288663.jpg"
+      }
+    },
+    {
+      "id": "ui-candle-health-stages",
+      "role": "8 melting stages representing player wax, health and light gauge",
+      "path": "Assets/Sprites/UI/CandleStages/",
+      "status": "produced",
+      "technical": {
+        "dimensions": "56x72",
+        "alpha": true,
+        "filtering": "point"
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "wickfall_ui_assetsheet_1793782354196.jpg"
+      }
+    },
+    {
+      "id": "ui-main-menu-buttons",
+      "role": "Play, Options, Exit buttons in normal and highlighted flame-border states",
+      "path": "Assets/Sprites/UI/Buttons/",
+      "status": "produced",
+      "technical": {
+        "dimensions": "160x50",
+        "alpha": true,
+        "filtering": "point"
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "wickfall_ui_assetsheet_1793782354196.jpg"
+      }
+    },
+    {
+      "id": "ui-main-menu-background",
+      "role": "main menu title screen artwork featuring the melancholic candle golem on sarcophagus",
+      "path": "Assets/Sprites/UI/menu_background.png",
+      "status": "produced",
+      "technical": {
+        "dimensions": "1376x768",
+        "alpha": false,
+        "filtering": "bilinear"
+      },
+      "source": {
+        "kind": "ai-generated",
+        "tool": "image-generator",
+        "source_sheet": "wickfall_title_screen_1793782278836.jpg"
+      }
+    }
+  ]
+}

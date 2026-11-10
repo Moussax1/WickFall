@@ -1,0 +1,1 @@
+WickFall.EditorTools.MainMenuBuilder.BuildScene();
