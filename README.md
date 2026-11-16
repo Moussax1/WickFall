@@ -276,22 +276,7 @@ In-Editor verification is also accessible via `Tools` -> `WickFall` -> `Verify C
 
 ---
 
-## 📋 Project Specification Compliance
 
-This project fulfills all required elements specified in the design contract ([docs/Cahier_des_charges_WICKFALL.md](docs/Cahier_des_charges_WICKFALL.md)):
-
-| Milestone Requirement | Implementation Detail | Status |
-|:---|:---|:---:|
-| **Main Menu Scene** | Full interactive menu with Play, Options, and Exit buttons (`MainMenuManager.cs`) | ✅ Complete |
-| **Top-Down 2D Environment** | Crypt floor tiles, solid walls, pillars, sarcophagi, and ambient darkness | ✅ Complete |
-| **Character & Movement** | 4-directional animated candle golem (`PlayerController.cs`) | ✅ Complete |
-| **Wax System** | Max value, passive burn, combat damage, and shard recovery (`PlayerWax.cs`) | ✅ Complete |
-| **Dynamic Lighting** | Real-time radius and intensity scaling with Perlin flicker (`CandleLight.cs`) | ✅ Complete |
-| **Enemies & Combat** | Shadow Thralls and Corrupted Wisps with pursuit AI and player ember blade | ✅ Complete |
-| **Player HUD** | Gothic bezel, 8-stage melting candle health display, progression indicator | ✅ Complete |
-| **Ancient Brazier** | Rekindling checkpoint with visual flares and wax restoration (`Brazier.cs`) | ✅ Complete |
-
----
 
 ## 🤝 Contributing
 
