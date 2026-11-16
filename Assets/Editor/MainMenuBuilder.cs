@@ -4,6 +4,7 @@ using UnityEditor.Events;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using WickFall.UI;
@@ -69,12 +70,9 @@ namespace WickFall.EditorTools
 
             // 3. EventSystem Setup
             GameObject eventSystemObj = new GameObject("EventSystem");
-            eventSystemObj.AddComponent<EventSystem>();
-            var inputModuleType = System.Type.GetType("UnityEngine.InputSystem.UI.InputSystemUIInputModule, Unity.InputSystem");
-            if (inputModuleType != null)
-                eventSystemObj.AddComponent(inputModuleType);
-            else
-                eventSystemObj.AddComponent<StandaloneInputModule>();
+            EventSystem es = eventSystemObj.AddComponent<EventSystem>();
+            InputSystemUIInputModule inputModule = eventSystemObj.AddComponent<InputSystemUIInputModule>();
+            inputModule.AssignDefaultActions();
 
             // 4. Canvas Hierarchy
             GameObject canvasObj = new GameObject("Canvas");
@@ -99,6 +97,7 @@ namespace WickFall.EditorTools
             bgRect.offsetMax = Vector2.zero;
 
             Image bgImage = bgObj.AddComponent<Image>();
+            bgImage.raycastTarget = false;
             Sprite bgSprite = AssetDatabase.LoadAssetAtPath<Sprite>(BG_SPRITE_PATH);
             if (bgSprite != null)
             {
@@ -121,6 +120,7 @@ namespace WickFall.EditorTools
             titleRect.sizeDelta = new Vector2(560f, 190f);
 
             Image titleImg = titleObj.AddComponent<Image>();
+            titleImg.raycastTarget = false;
             Sprite titleSprite = AssetDatabase.LoadAssetAtPath<Sprite>(TITLE_LOGO_PATH);
             if (titleSprite != null)
             {
@@ -140,6 +140,7 @@ namespace WickFall.EditorTools
             frameRect.sizeDelta = new Vector2(420f, 500f);
 
             Image frameImg = frameObj.AddComponent<Image>();
+            frameImg.raycastTarget = false;
             Sprite frameSprite = AssetDatabase.LoadAssetAtPath<Sprite>(MENU_FRAME_PATH);
             if (frameSprite != null)
             {
@@ -165,6 +166,7 @@ namespace WickFall.EditorTools
             RectTransform pillRect = pillObj.AddComponent<RectTransform>();
             pillRect.sizeDelta = new Vector2(340f, 64f);
             Image pillImg = pillObj.AddComponent<Image>();
+            pillImg.raycastTarget = false;
             Sprite pillSprite = AssetDatabase.LoadAssetAtPath<Sprite>(PILL_HIGHLIGHT_PATH);
             if (pillSprite != null)
             {
@@ -252,8 +254,10 @@ namespace WickFall.EditorTools
 
             Image targetGraphic = btnObj.AddComponent<Image>();
             targetGraphic.color = new Color(0, 0, 0, 0.005f); // Transparent raycast target
+            targetGraphic.raycastTarget = true;
 
             Button btn = btnObj.AddComponent<Button>();
+            btn.targetGraphic = targetGraphic;
             btn.transition = Selectable.Transition.None;
 
             GameObject txtObj = new GameObject("Label");
@@ -271,6 +275,7 @@ namespace WickFall.EditorTools
             text.fontStyle = FontStyle.Bold;
             text.alignment = TextAnchor.MiddleCenter;
             text.color = new Color(0.94f, 0.90f, 0.82f, 1f);
+            text.raycastTarget = false;
 
             // Subtle dark drop shadow
             Shadow shadow = txtObj.AddComponent<Shadow>();
@@ -305,6 +310,7 @@ namespace WickFall.EditorTools
             frameRect.sizeDelta = new Vector2(640f, 520f);
 
             Image frameImg = frame.AddComponent<Image>();
+            frameImg.raycastTarget = false;
             Sprite settingsFrameSprite = AssetDatabase.LoadAssetAtPath<Sprite>(SETTINGS_FRAME_PATH);
             if (settingsFrameSprite != null)
             {
@@ -329,6 +335,7 @@ namespace WickFall.EditorTools
             titleText.fontSize = 28;
             titleText.fontStyle = FontStyle.Bold;
             titleText.color = new Color(1f, 0.88f, 0.55f, 1f);
+            titleText.raycastTarget = false;
 
             // Volume Section Heading
             GameObject volLblObj = new GameObject("VolumeHeading");
@@ -342,6 +349,7 @@ namespace WickFall.EditorTools
             volLbl.font = font;
             volLbl.fontSize = 20;
             volLbl.color = new Color(0.88f, 0.84f, 0.78f, 1f);
+            volLbl.raycastTarget = false;
 
             // Custom Gothic Stone Volume Slider
             GameObject sliderObj = new GameObject("VolumeSlider");
@@ -420,6 +428,7 @@ namespace WickFall.EditorTools
             volLabel.font = font;
             volLabel.fontSize = 20;
             volLabel.color = new Color(1f, 0.85f, 0.5f, 1f);
+            volLabel.raycastTarget = false;
 
             // Fullscreen Toggle (Chiseled stone box with flame check)
             GameObject toggleObj = new GameObject("FullscreenToggle");
@@ -510,6 +519,7 @@ namespace WickFall.EditorTools
             backTxt.fontSize = 24;
             backTxt.fontStyle = FontStyle.Bold;
             backTxt.color = new Color(0.98f, 0.94f, 0.88f, 1f);
+            backTxt.raycastTarget = false;
 
             Shadow backShadow = backTxtObj.AddComponent<Shadow>();
             backShadow.effectColor = new Color(0.05f, 0.04f, 0.03f, 0.9f);
